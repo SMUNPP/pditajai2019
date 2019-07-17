@@ -47,12 +47,13 @@
         let tileosm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             minZoom: 12,
             maxZoom: 16,
+            opacity: 0.2,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="mailto:jaceguay@itajai.sc.gov.br?Subject=WebGIS" target="_top">SIE</a>'
-        });
+        }).addTo(mapa);
 
         //Mapa base, google
         let tilegg = new L.TileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-            opacity: 0.6,
+            opacity: 0.5,
             maxZoom: 20,
             transparent: false,
             attribution: '©2018 Google, Itajaí/SC, <a href="mailto:jaceguay@itajai.sc.gov.br?Subject=WebGIS" target="_top">SIE</a>',
@@ -84,9 +85,9 @@
         nortemapa.addTo(mapa);
 
         var baseMaps = {
-            "mapa oficinas": tilesmu,
-            "satélite google": tilegg,
-            "open street maps": tileosm
+            "mapa oficinas": tileosm,
+            "satélite google": tilegg
+
         };
 
         L.control.layers(baseMaps, null, {collapsed: false}).addTo(mapa);
