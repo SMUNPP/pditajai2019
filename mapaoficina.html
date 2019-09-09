@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>mapaoficinas</title>
     <link rel="stylesheet" href="lib/leaflet.css" />
+    <link rel="stylesheet" href="lib/leaflet-measure.css" />
     <script src="lib/leaflet.js"></script>
+    <script src="lib/leaflet-measure.pt_BR.js"></script>
 </head>
 <style>
     body {
@@ -25,6 +27,7 @@
 <body>
 
     <div id="mapa"></div>
+    <pre id="eventoutput" style="display: none;"></pre>
 
     <script>
         //#div do mapa
@@ -90,7 +93,34 @@
 
         };
 
-        L.control.layers(baseMaps, null, {collapsed: false}).addTo(mapa);
+        L.control.layers(baseMaps, null, { collapsed: false }).addTo(mapa);
+
+        //Medidas área
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(mapa);
+        mapa.on('measurefinish', function (evt) {
+            writeResults(evt);
+        });
+        function writeResults(results) {
+            document.getElementById('eventoutput').innerHTML = JSON.stringify(
+                {
+                    area: results.area,
+                    areaDisplay: results.areaDisplay,
+                    lastCoord: results.lastCoord,
+                    length: results.length,
+                    lengthDisplay: results.lengthDisplay,
+                    pointCount: results.pointCount,
+                    points: results.points
+                },
+                null,
+                2
+            );
+        };
 
 
     </script>
