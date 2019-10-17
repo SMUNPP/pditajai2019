@@ -121,7 +121,26 @@
                 2
             );
         };
+        L.Control.Watermark = L.Control.extend({
+            onAdd: function (mapa) {
+                var img = L.DomUtil.create('img');
 
+                img.src = 'imagens/legenda.png';
+                img.style.width = '200px';
+
+                return img;
+            },
+
+            onRemove: function (map) {
+                // Nothing to do here
+            }
+        });
+
+        L.control.watermark = function (opts) {
+            return new L.Control.Watermark(opts);
+        }
+
+        L.control.watermark({ position: 'bottomleft' }).addTo(mapa);
 
     </script>
 
