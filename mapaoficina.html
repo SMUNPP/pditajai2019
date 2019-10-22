@@ -7,6 +7,7 @@
     <title>mapaoficinas</title>
     <link rel="stylesheet" href="lib/leaflet.css" />
     <link rel="stylesheet" href="lib/leaflet-measure.css" />
+    <script src="lib/jquery-3.4.1.min.js"></script>
     <script src="lib/leaflet.js"></script>
     <script src="lib/leaflet-measure.pt_BR.js"></script>
 </head>
@@ -141,6 +142,26 @@
         }
 
         L.control.watermark({ position: 'bottomleft' }).addTo(mapa);
+
+        //zonas clique
+        //CCS
+        $.getJSON("data/zonoutubro.geojson", (data) => {
+            L.geoJson(data, {
+                style: (feature) => {
+                    return {
+                        fillColor: false,
+                        stroke: false
+                    };
+                },
+                onEachFeature: (feature, layer) => {
+                    layer.bindPopup(
+                        '<strong>' + 'Zona: ' + feature.properties.zoneamento + '</strong>' + '<br/>' +
+                        'altura: ' + feature.properties.altura
+                    )
+                }
+            }).addTo(mapa);
+            console.log(data);
+        });
 
     </script>
 
