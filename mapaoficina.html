@@ -155,8 +155,8 @@
                 },
                 onEachFeature: (feature, layer) => {
                     layer.bindPopup(
-                        '<strong>' + 'Zona: ' + feature.properties.zoneamento + '</strong>' + '<br/>' +
-                        'altura: ' + feature.properties.altura
+                        '<strong>' + 'Zona: ' + feature.properties.zoneamento + '</strong>'
+                        
                     )
                 }
             }).addTo(mapa);
